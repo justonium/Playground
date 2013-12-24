@@ -1,0 +1,233 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Title
+\end_layout
+
+\begin_layout Author
+Justin Northrop
+\end_layout
+
+\begin_layout Date
+Dec 23, 2013
+\end_layout
+
+\begin_layout Abstract
+This document describes an agent architecture which might cause an agent
+ employing it to try to learn structure in its environment.
+\end_layout
+
+\begin_layout Section
+Interface with the Game World
+\end_layout
+
+\begin_layout Standard
+An agent has a set of sensors, 
+\begin_inset Formula $S$
+\end_inset
+
+, a set of guesses, 
+\begin_inset Formula $G$
+\end_inset
+
+, and a set of actuators, 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ Each sensor 
+\begin_inset Formula $s\in S$
+\end_inset
+
+, each guess 
+\begin_inset Formula $g\in G$
+\end_inset
+
+, and each actuator 
+\begin_inset Formula $a\in A$
+\end_inset
+
+ is a binary variable: 
+\begin_inset Formula $\forall x\in S\cup G\cup A[x\in\{0,1\}]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The value of each sensor 
+\begin_inset Formula $s\in S$
+\end_inset
+
+ is set by the game world.
+ An agent can observe, but cannot modify, 
+\begin_inset Formula $s$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+An Agent can both observe and modify each guess 
+\begin_inset Formula $g\in G$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+There is a one to one relation between 
+\begin_inset Formula $S$
+\end_inset
+
+ and 
+\begin_inset Formula $G$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The value of each actuator 
+\begin_inset Formula $a\in A$
+\end_inset
+
+ corresponds to some state in the game world.
+ An agent can both observe and modify 
+\begin_inset Formula $a$
+\end_inset
+
+.
+ Modifying 
+\begin_inset Formula $a$
+\end_inset
+
+ influences the state of the game world.
+\end_layout
+
+\begin_layout Section
+Internal Structure
+\end_layout
+
+\begin_layout Standard
+An agent contains two distinct programs: a predictor
+\begin_inset Formula $P_{G}$
+\end_inset
+
+ and an actor 
+\begin_inset Formula $P_{A}$
+\end_inset
+
+.
+ Both the predictor 
+\begin_inset Formula $P_{G}$
+\end_inset
+
+ and the actor 
+\begin_inset Formula $P_{A}$
+\end_inset
+
+ take as input 
+\begin_inset Formula $S\cup G\cup A$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The predictor 
+\begin_inset Formula $P_{G}$
+\end_inset
+
+ produces 
+\begin_inset Formula $G$
+\end_inset
+
+ as its output, and receives penalty for each 
+\begin_inset Formula $s\in S$
+\end_inset
+
+ that is different from the corresponding element 
+\begin_inset Formula $g\in G$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The actor 
+\begin_inset Formula $P_{A}$
+\end_inset
+
+ produces 
+\begin_inset Formula $A$
+\end_inset
+
+ as its output, and receives reward equal to the penalty received by 
+\begin_inset Formula $P_{G}$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
